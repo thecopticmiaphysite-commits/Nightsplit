@@ -1,0 +1,19 @@
+{
+  "name": "NIGHTSPLIT",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "NightsplitShared": {
+        "$path": "src/shared"
+      }
+    },
+    "ServerScriptService": {
+      "$path": "src/server"
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "$path": "src/client"
+      }
+    }
+  }
+}
