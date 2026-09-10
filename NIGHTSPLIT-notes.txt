@@ -1,0 +1,1275 @@
+PROJECT: NIGHTSPLIT
+
+I want you to take an active development role on my Roblox game, NIGHTSPLIT.
+
+This is not just a brainstorming conversation. I want you to actually work on the project, write and improve the code, inspect the repository, organize the architecture, debug problems, and keep moving development forward.
+
+You have permission to work on my connected GitHub repository:
+
+thecopticmiaphysite-commits/Nightsplit
+
+IMPORTANT WORKING STYLE
+
+I am the game director/playtester. You are handling as much of the technical development as your available tools allow.
+
+Do not constantly make me:
+- copy/paste giant scripts
+- manually rewrite code
+- perform unnecessary Roblox Studio steps
+- approve every tiny implementation decision
+- answer questions that can reasonably be decided from the existing design
+
+When you can safely make a reasonable development decision yourself, make it.
+
+Use GitHub directly whenever possible.
+
+Inspect existing code before replacing it.
+
+Keep the repository clean and organized.
+
+Use branches/commits/PRs appropriately, but don't create unnecessary bureaucracy that slows down development.
+
+Do not destroy working systems just because you would have architected them differently. Improve/refactor them when there is a concrete reason.
+
+When something requires Roblox Studio itself, tell me exactly what I need to do and keep those instructions extremely short.
+
+When something requires playtesting, tell me specifically what behaviors you need me to test.
+
+If I report that something feels bad, treat that as playtest feedback and iterate on it.
+
+Do not claim something has been tested in Roblox Studio if you cannot actually run Roblox Studio.
+
+Use current Roblox/Luau best practices and authoritative Roblox documentation when technical uncertainty matters.
+
+Prioritize performance, maintainability, multiplayer security, exploit resistance, cross-platform compatibility, and smooth gameplay.
+
+Do not expose credentials, tokens, secrets, or private information.
+
+==================================================
+THE GAME
+==================================================
+
+NAME:
+
+NIGHTSPLIT
+
+I strongly prefer this name. The previous working name BREAKNIGHT was abandoned.
+
+GENRE / CORE IDEA:
+
+NIGHTSPLIT should become a highly replayable cooperative survival/action roguelite Roblox game.
+
+The game should combine:
+
+- survival
+- exploration
+- objectives
+- escalating enemies
+- cooperative teamwork
+- classes
+- weapons
+- perks/powerups
+- random loot
+- dangerous strongholds
+- secrets
+- environmental storytelling
+- mystery
+- long-term progression
+
+The game should feel easy to understand initially but have substantial depth underneath.
+
+The biggest priority is GAMEPLAY.
+
+I do not want a game that feels like a menu simulator or Roblox cash grab.
+
+==================================================
+MAJOR INSPIRATIONS
+==================================================
+
+99 NIGHTS IN THE FOREST
+
+What I like:
+
+- progression through increasingly dangerous areas
+- dangerous locations/strongholds
+- enemies protecting important rewards
+- survival structure
+- meaningful updates
+- expanding content
+- reasons to explore
+- progression during a run
+
+Do NOT simply clone 99 Nights.
+
+Use the underlying design ideas and make NIGHTSPLIT its own game.
+
+BLACK OPS II ZOMBIES / CLASSIC ZOMBIES
+
+This is a major inspiration.
+
+Things I like:
+
+- starting relatively weak
+- earning currency through gameplay
+- spending currency to open areas
+- deciding where/when to spend currency
+- buying perks/powerups
+- progressively accessing more of the map
+- mystery/easter eggs
+- hidden story
+- special weapons
+- cooperative survival
+- increasing danger
+- memorable maps
+- simple core loop with substantial depth
+
+I especially like how opening doors creates decisions about progression.
+
+NIGHTSPLIT should have its own equivalent.
+
+FORTNITE / LUCKY BLOCK BED WARS
+
+Things I like:
+
+- smooth movement
+- responsive controls
+- random loot
+- rarity
+- exciting chest openings
+- risk/reward mechanics
+- loot that can suddenly change a run
+
+Again: inspiration, not copying.
+
+==================================================
+CORE DESIGN PHILOSOPHY
+==================================================
+
+NIGHTSPLIT should be:
+
+GAMEPLAY FIRST.
+
+MINIMAL UI.
+
+SMOOTH.
+
+FAST TO UNDERSTAND.
+
+DIFFICULT TO MASTER.
+
+COOPERATIVE.
+
+REPLAYABLE.
+
+MYSTERIOUS.
+
+UPDATED REGULARLY.
+
+NOT PAY-TO-WIN.
+
+NOT FILLED WITH MENUS.
+
+Physical interactions in the world are generally preferable to unnecessary menu interfaces.
+
+A player should be able to enter the game and start playing without reading fifteen tutorials.
+
+Teach mechanics naturally through gameplay whenever possible.
+
+==================================================
+THE CORE RUN
+==================================================
+
+The exact structure can evolve through playtesting, but the intended concept is:
+
+Players enter a run.
+
+They explore.
+
+They complete objectives.
+
+They earn currency/resources.
+
+They open new sections of the world.
+
+They acquire weapons/items.
+
+They improve themselves with perks/powerups.
+
+They encounter increasingly dangerous enemies.
+
+They discover strongholds and special encounters.
+
+They find story clues/secrets.
+
+Night/Breaknight events increase danger.
+
+Players make decisions about:
+
+- where to explore
+- which areas to unlock
+- what to buy
+- which objectives to pursue
+- what equipment to keep
+- whether to risk dangerous locations
+- whether to rescue teammates
+- whether to gamble loot
+- when to retreat
+
+The run should create stories naturally.
+
+Example:
+
+A teammate dies deep inside a dangerous region.
+
+Their Echo Tag remains behind.
+
+The team must decide whether to risk going back.
+
+Someone retrieves it.
+
+Now they must carry it to a dangerous reboot location.
+
+The team barely survives.
+
+That kind of emergent moment is EXACTLY what I want.
+
+==================================================
+DAY / NIGHT / NIGHTSPLIT SYSTEM
+==================================================
+
+There should be a changing run state.
+
+We have already begun experimenting with:
+
+Intermission
+Day
+Breaknight/Night
+
+The terminology can be refined.
+
+Night should meaningfully change gameplay rather than simply making the map darker.
+
+Possible night effects:
+
+- stronger enemies
+- different enemies
+- roaming threats
+- special events
+- reduced visibility
+- dangerous environmental changes
+- unique loot opportunities
+- stronghold activation
+- map changes
+- story events
+
+As nights increase, difficulty should escalate.
+
+Do not simply increase enemy HP forever.
+
+Difficulty should also evolve through:
+
+- enemy behaviors
+- combinations
+- environmental pressure
+- resource scarcity
+- special enemies
+- objectives
+- map conditions
+
+==================================================
+OBJECTIVES
+==================================================
+
+Runs should contain objectives.
+
+Basic objectives should:
+
+- move the run forward
+- encourage exploration
+- provide currency/rewards
+- create risk
+
+There should eventually be multiple objective types rather than pressing one button repeatedly.
+
+Examples could include:
+
+- restore power
+- defend an area
+- retrieve an object
+- repair machinery
+- activate relays
+- eliminate a target
+- escort/carry something
+- survive an event
+- enter a stronghold
+- recover information
+
+Objectives can become important storytelling tools.
+
+==================================================
+CURRENCY
+==================================================
+
+Players earn currency DURING the run.
+
+Currency should be useful for things such as:
+
+- opening doors
+- unlocking areas
+- perks
+- powerups
+- equipment
+- possibly rerolls/upgrades
+- other run decisions
+
+Currency should create meaningful tradeoffs.
+
+Do not make it meaningless by giving players infinite amounts.
+
+==================================================
+DOORS / WORLD PROGRESSION
+==================================================
+
+I specifically want Zombies-style paid doors/area progression.
+
+Some regions begin inaccessible.
+
+Players spend earned run currency to open them.
+
+Opening areas should:
+
+- expose new enemies
+- reveal objectives
+- reveal loot
+- provide shortcuts
+- reveal story
+- unlock stronger equipment
+- potentially make the run more dangerous
+
+Door prices and progression should be data-driven/configurable rather than hard-coded everywhere.
+
+==================================================
+STRONGHOLDS
+==================================================
+
+I want dangerous enemy-controlled areas inspired by the progression concept of 99 Nights.
+
+Players enter a dangerous location.
+
+They must defeat enemies or complete an encounter.
+
+The reward should sometimes be essential to progressing the run or uncovering the story.
+
+Strongholds should feel dangerous enough that entering one is a meaningful decision.
+
+==================================================
+LUCKY / FRACTURE CHESTS
+==================================================
+
+I want random loot chests.
+
+Working concept:
+
+FRACTURE CHESTS
+
+They can have different rarities.
+
+Possible rarities:
+
+Common
+Uncommon
+Rare
+Epic
+Legendary
+Fractured / Mythic / special tier
+
+Names can evolve.
+
+Important mechanic:
+
+Players may sometimes be able to GAMBLE a chest.
+
+Example:
+
+You have a Rare chest.
+
+You can take the guaranteed Rare reward OR risk it.
+
+The chest could:
+
+- increase rarity
+- remain similar
+- decrease rarity
+- fracture
+- potentially produce something unusual
+
+This should be exciting risk/reward.
+
+IMPORTANT:
+
+Do NOT make random gameplay loot dependent on Robux gambling.
+
+Keep gameplay loot earned through gameplay.
+
+Avoid exploitative monetization.
+
+==================================================
+WEAPONS
+==================================================
+
+NIGHTSPLIT needs satisfying weapons.
+
+Weapon architecture should eventually support:
+
+- hitscan weapons
+- projectile weapons
+- melee
+- special weapons
+- ammo
+- reloads
+- rarity/stats
+- attachments/upgrades if appropriate
+- weapon swapping
+- dropping weapons
+- teammate handoffs
+
+Weapons need responsive feedback.
+
+Server must remain authoritative over important combat results to reduce exploits.
+
+==================================================
+SIGNATURE WONDER WEAPON
+==================================================
+
+I love the Ray Gun concept from Zombies, but DO NOT copy the Ray Gun.
+
+NIGHTSPLIT needs its own recognizable special weapon.
+
+Working concepts we discussed include names such as:
+
+Rift-9
+Riftcaster
+Fracture weapon
+
+The final name/design can evolve.
+
+The goal is:
+
+A rare, exciting, immediately recognizable NIGHTSPLIT weapon that players freak out about finding.
+
+Eventually there can be multiple special weapons.
+
+==================================================
+PERKS / POWERUPS
+==================================================
+
+Players should be able to acquire perks/powerups during runs.
+
+They should meaningfully alter gameplay.
+
+Avoid boring "+2%" upgrades whenever possible.
+
+Good perks change how players approach situations.
+
+==================================================
+INSURANCE PERK
+==================================================
+
+One specific idea I want:
+
+INSURANCE
+
+Normally dying risks losing purchased run perks/powerups.
+
+Insurance allows the player to preserve them after a death/reboot.
+
+Potentially:
+
+- Insurance is consumed when triggered.
+- The player keeps eligible perks after revival.
+
+Exact balance can be playtested.
+
+==================================================
+DEATH / ECHO TAG REVIVAL
+==================================================
+
+This is one of my favorite mechanics.
+
+When a player fully dies, they leave behind something like a dog tag.
+
+Working NIGHTSPLIT name:
+
+ECHO TAG
+
+The Echo Tag remains where they died.
+
+A teammate must physically retrieve it.
+
+Then they must carry/bring it to a dangerous reboot/relay location.
+
+Successfully doing this revives the dead teammate.
+
+This should NOT simply be:
+
+"Hold E next to dead player for three seconds."
+
+I want death to create an actual rescue mission.
+
+Potential considerations:
+
+- retrieval danger
+- limited recovery time
+- carrying limitations
+- reboot location danger
+- enemies reacting to reboot attempts
+- special reboot events
+- class interactions
+
+The system should encourage clutch cooperative moments.
+
+==================================================
+TEAM TRADING / HANDOFFS
+==================================================
+
+Players should be able to give teammates useful items.
+
+Possible transferable things:
+
+- weapons
+- ammo
+- healing
+- resources
+- currency
+- loot
+
+Prefer quick physical drop/handoff interactions over giant permanent trading menus.
+
+This is primarily cooperative run gameplay, not a marketplace economy.
+
+Avoid scam-prone permanent item trading unless there is a strong future reason.
+
+==================================================
+CLASSES
+==================================================
+
+I want classes.
+
+Current concepts include:
+
+MEDIC
+SHARPSHOOTER
+CHEF / SUPPORT
+NIGHT VISION / RECON
+
+There will eventually be more.
+
+Classes should affect things such as:
+
+- starting equipment
+- passive ability
+- active ability
+- class-specific objectives
+- progression
+- playstyle
+
+Do NOT make classes so restrictive that a Medic can never use a good rifle they find.
+
+Classes should influence playstyle without unnecessarily locking players out of loot.
+
+==================================================
+CLASS OBJECTIVES / MASTERY
+==================================================
+
+Classes should have objectives that progress mastery.
+
+Examples:
+
+Medic:
+revive/heal teammates.
+
+Sharpshooter:
+precision kills or difficult ranged eliminations.
+
+Recon:
+discover locations/intelligence.
+
+Chef/support:
+craft/provide useful consumables.
+
+Progression should reward playing the role effectively.
+
+Long-term class progression should primarily provide:
+
+- mastery
+- cosmetics
+- interesting sidegrades
+- new starting options
+- prestige
+
+Avoid creating a permanent stat advantage that makes new players useless.
+
+==================================================
+MOVEMENT
+==================================================
+
+THIS IS A VERY HIGH PRIORITY.
+
+Movement must feel excellent before we pile hundreds of systems on top.
+
+Target movement:
+
+Walk
+Sprint
+Crouch
+Slide
+
+Potential future movement can be evaluated later.
+
+SPRINT:
+
+Keyboard:
+LeftShift
+
+Controller:
+L3
+
+Mobile:
+dedicated button
+
+Initial speeds we've experimented with:
+
+WalkSpeed = 16
+SprintSpeed = 24
+
+These are not sacred values. Tune based on feel.
+
+Sprint uses stamina.
+
+STAMINA:
+
+There should be a minimal stamina indicator.
+
+Prefer a small clean bar in a bottom corner.
+
+Stamina:
+
+- drains while sprinting
+- regenerates
+- handles exhaustion cleanly
+- should not flicker or behave inconsistently
+
+CROUCH / SLIDE:
+
+This is contextual.
+
+Keyboard:
+C and/or LeftCtrl
+
+Controller:
+B / Circle-equivalent
+
+Mobile:
+dedicated contextual movement button
+
+Behavior:
+
+IF NOT SPRINTING:
+pressing the contextual movement button = CROUCH.
+
+IF SPRINTING/MOVING:
+pressing it = SLIDE.
+
+Pressing crouch while sprinting must NOT simply stop the player.
+
+That was an earlier bug.
+
+CROUCH:
+
+Crouch needs to be REAL.
+
+Not merely lowering the camera.
+
+Eventually it should include:
+
+- visible R15 crouch animation
+- lowered player stance
+- appropriate movement speed
+- lower camera
+- physical clearance where appropriate
+- inability to stand if there is insufficient headroom
+
+SLIDE:
+
+Slide needs real momentum.
+
+Not just lowering the camera.
+
+Desired feel:
+
+Sprint -> press crouch -> player carries momentum into a smooth slide.
+
+Slide should have:
+
+- initial momentum
+- controlled deceleration
+- duration
+- cooldown if necessary
+- real slide animation
+- clean transition back to movement
+- slope behavior eventually
+- no freezing
+
+Use modern Roblox physics methods.
+
+Avoid deprecated BodyVelocity/old BodyMovers.
+
+Consider ApplyImpulse / LinearVelocity / appropriate modern constraints depending on implementation.
+
+Do not recklessly manipulate physics in ways that create network/exploit problems.
+
+==================================================
+MOVEMENT ANIMATIONS
+==================================================
+
+The code should support custom animation IDs.
+
+Actual custom crouch/slide animations will eventually need to be uploaded/published as Roblox animation assets.
+
+Do NOT invent fake animation asset IDs.
+
+Build clean animation hooks/configuration so we can insert IDs later.
+
+==================================================
+INPUT / CROSS-PLATFORM
+==================================================
+
+NIGHTSPLIT should eventually work properly on:
+
+PC keyboard/mouse
+Xbox-style controllers
+PlayStation-style controllers
+Mobile/touch
+
+Use a proper action abstraction.
+
+ContextActionService is acceptable where appropriate.
+
+Roblox's newer Input Action System can be evaluated if mature/useful.
+
+Eventually I want customizable controls.
+
+PC players should be able to remap controls.
+
+Controller players should be able to remap controls where practical.
+
+Mobile should eventually have customizable control positioning/settings.
+
+Do not hardwire every gameplay system directly to KeyCode values.
+
+Build toward ACTIONS such as:
+
+Sprint
+CrouchSlide
+Interact
+Reload
+PrimaryFire
+SecondaryFire
+Ability
+DropItem
+etc.
+
+Then map inputs to actions.
+
+==================================================
+UI
+==================================================
+
+MINIMAL.
+
+I do not want the screen covered with:
+
+- currencies
+- giant quest boxes
+- 20 buttons
+- advertisements
+- shop prompts
+- popups
+
+UI should communicate what the player actually needs.
+
+Examples:
+
+health
+stamina
+ammo
+important objective
+run/night state
+currency
+interaction prompts
+
+Use visual hierarchy.
+
+Mobile obviously requires more visible controls, but keep them clean.
+
+==================================================
+STORY / MYSTERY
+==================================================
+
+NIGHTSPLIT needs an unfolding mystery.
+
+I do NOT want the entire story explained in a giant intro cutscene.
+
+Players should gradually discover:
+
+- environmental clues
+- strange locations
+- documents/logs
+- transmissions
+- hidden rooms
+- unusual enemies
+- recurring symbols
+- secret objectives
+- easter eggs
+- major revelations
+
+Updates can reveal more of the mystery.
+
+Players should theorize about what NIGHTSPLIT actually means and what happened to the world.
+
+Gameplay should still work for someone who does not care about lore.
+
+==================================================
+UPDATES
+==================================================
+
+The game should be designed so meaningful updates can be added regularly.
+
+Examples:
+
+new region
+new enemy
+new stronghold
+new weapon
+new class
+new chest event
+new objective
+new perk
+new secret
+new story development
+new Breaknight event
+
+Architecture should be modular/data-driven enough that adding content doesn't require rewriting the whole game.
+
+==================================================
+MONETIZATION
+==================================================
+
+Do NOT design this as a cash grab.
+
+Avoid:
+
+- pay-to-win weapons
+- Robux gambling
+- constant purchase popups
+- deliberately miserable gameplay unless players pay
+
+Potential acceptable monetization later:
+
+- cosmetics
+- skins
+- animations
+- emotes
+- visual effects
+- optional cosmetic class customization
+- other non-P2W purchases
+
+Gameplay integrity comes first.
+
+==================================================
+MULTIPLAYER / SECURITY
+==================================================
+
+Assume clients are untrusted.
+
+Important gameplay should be server-authoritative.
+
+Especially:
+
+- damage
+- currency
+- purchases
+- loot ownership
+- objectives
+- revives
+- progression
+- rewards
+- inventory changes
+
+Validate RemoteEvents/RemoteFunctions.
+
+Rate-limit where appropriate.
+
+Never trust the client saying:
+
+"I killed this enemy."
+"Give me 10,000 currency."
+"I opened this chest."
+"I own this item."
+
+Client should request actions.
+
+Server validates them.
+
+==================================================
+PERFORMANCE
+==================================================
+
+This game may eventually have:
+
+- multiple players
+- many enemies
+- projectiles
+- loot
+- events
+- large environments
+
+Design with performance in mind.
+
+Avoid:
+
+- unnecessary per-frame loops
+- hundreds of uncontrolled connections
+- excessive replication
+- constantly scanning Workspace
+- memory leaks
+- expensive pathfinding spam
+- huge monolithic scripts
+
+Use tags/config/modules/services appropriately.
+
+==================================================
+REPOSITORY / ROJO
+==================================================
+
+GitHub repository:
+
+thecopticmiaphysite-commits/Nightsplit
+
+Rojo has been chosen as the bridge between source control and Roblox Studio.
+
+The repository began with a structure similar to:
+
+Nightsplit
+├── default.project.json
+├── README.md
+└── src
+    ├── client
+    ├── server
+    └── shared
+
+Existing/previous files have included:
+
+src/client/MovementController.client.lua
+src/shared/MovementConfig.lua
+src/server/Bootstrap.server.lua
+
+Additional development work began on branch:
+
+dev/core-game
+
+A PR was opened titled:
+
+Build NIGHTSPLIT core gameplay foundation
+
+PR #1.
+
+That development pass began implementing:
+
+- shared game configuration
+- player session state
+- currency foundation
+- Day/Breaknight run director
+- objective framework
+- currency doors
+- minimal HUD
+
+DO NOT ASSUME THESE IMPLEMENTATIONS ARE CORRECT.
+
+Inspect the repository yourself.
+
+Audit them.
+
+Fix bad architecture or bugs.
+
+Preserve useful work.
+
+==================================================
+IMPORTANT ROJO REQUIREMENT
+==================================================
+
+Make sure default.project.json maps things cleanly.
+
+I want a sensible Roblox hierarchy such as:
+
+ReplicatedStorage
+    Shared
+    Remotes
+
+ServerScriptService
+    Server systems/services
+
+StarterPlayer
+    StarterPlayerScripts
+        client controllers
+
+StarterGui
+    UI if appropriate
+
+Exact structure can evolve.
+
+Do not create a confusing hierarchy just because it technically works.
+
+==================================================
+DEVELOPMENT PRIORITY
+==================================================
+
+DO NOT try to implement the entire finished game in one giant untested code dump.
+
+Build vertically.
+
+CURRENT PRIORITIES:
+
+PHASE 1 — FOUNDATION
+
+1. Audit repository.
+2. Verify/fix Rojo structure.
+3. Clean shared configuration.
+4. Build action/input abstraction.
+5. Finish movement.
+6. Finish stamina.
+7. Proper crouch state.
+8. Proper slide physics.
+9. Respawn handling.
+10. Minimal HUD.
+11. Multiplayer-safe foundations.
+
+PHASE 2 — CORE COMBAT
+
+1. weapon framework
+2. shooting
+3. damage
+4. reload/ammo
+5. weapon pickups
+6. dropping/handoffs
+7. first enemy
+8. enemy damage
+9. enemy spawning
+10. basic survival encounter
+
+PHASE 3 — RUN LOOP
+
+1. run state
+2. Day/Breaknight
+3. escalating nights
+4. currency
+5. objectives
+6. doors
+7. map progression
+8. rewards
+9. loss/win/reset conditions
+
+PHASE 4 — LOOT
+
+1. inventory
+2. weapon rarity
+3. chest framework
+4. Fracture Chests
+5. gamble mechanic
+6. special weapon framework
+
+PHASE 5 — CO-OP
+
+1. downed/death system
+2. Echo Tags
+3. retrieving tags
+4. reboot location
+5. revival
+6. Insurance perk
+7. item handoffs
+8. teammate support mechanics
+
+PHASE 6 — CLASSES
+
+1. class framework
+2. Medic
+3. Sharpshooter
+4. Recon/Night Vision
+5. Chef/support
+6. class objectives
+7. mastery
+
+PHASE 7 — WORLD
+
+1. strongholds
+2. enemy types
+3. special enemies
+4. environmental hazards
+5. random events
+6. Night events
+7. exploration systems
+
+PHASE 8 — META / STORY / POLISH
+
+1. persistent progression
+2. cosmetics
+3. class mastery
+4. secrets
+5. lore
+6. easter eggs
+7. story progression
+8. sound
+9. animation
+10. effects
+11. onboarding
+12. accessibility
+13. performance optimization
+14. exploit testing
+
+==================================================
+WHAT I WANT YOU TO DO RIGHT NOW
+==================================================
+
+START WORKING.
+
+First:
+
+1. Connect to and inspect the GitHub repository.
+2. Read the existing files.
+3. Inspect main and dev/core-game.
+4. Inspect PR #1.
+5. Identify broken/incomplete architecture.
+6. Fix the Rojo project mapping if necessary.
+7. Audit MovementController.
+8. Refactor movement if needed.
+9. Build the strongest possible Phase 1 foundation.
+10. Commit your work to GitHub.
+11. Keep moving through Phase 1 until something genuinely requires Roblox Studio testing or a decision from me.
+
+Do not spend the entire session writing a research report about what you intend to do.
+
+ACTUALLY MODIFY THE PROJECT.
+
+When you reach something that requires me:
+
+Give me a very short PLAYTEST CHECKLIST.
+
+Example:
+
+TEST:
+- Shift = sprint
+- stamina drains/recharges
+- C while walking = crouch
+- C while sprinting = slide
+- cannot stand under low ceiling
+- death/respawn doesn't break controls
+- controller L3/B works
+
+Then wait for my results.
+
+If something does not require me, keep working.
+
+==================================================
+HOW I WILL COMMUNICATE FEEDBACK
+==================================================
+
+I may say things like:
+
+"slide feels too slow"
+"make sprint smoother"
+"HUD is ugly"
+"enemy is too tanky"
+"make the chest rarer"
+"this feels boring"
+"controller feels weird"
+
+Treat these as game-development/playtest feedback.
+
+Figure out which systems/configuration/code need changing and implement the change.
+
+Do not make me identify the exact Lua file.
+
+==================================================
+CREATIVE AUTHORITY
+==================================================
+
+You have permission to make reasonable technical and gameplay implementation decisions when I haven't specified something.
+
+However, preserve the major NIGHTSPLIT identity described above.
+
+For major irreversible design changes, ask me.
+
+Examples that should require my input:
+
+- completely changing the genre
+- removing classes
+- removing Echo Tags
+- abandoning the Day/Night concept
+- changing NIGHTSPLIT's name
+- introducing pay-to-win monetization
+- replacing the core game loop
+
+Examples that generally DON'T need my permission:
+
+- module organization
+- variable names
+- internal APIs
+- RemoteEvent structure
+- reasonable cooldown defaults
+- code refactoring
+- validation
+- cleanup
+- performance improvements
+- bug fixes
+- temporary placeholder values
+- sensible architecture
+
+==================================================
+FINAL GOAL
+==================================================
+
+I want NIGHTSPLIT to eventually feel like a legitimate standalone Roblox game, not a beginner Baseplate project.
+
+I want players to think:
+
+"one more run."
+
+Movement should feel good.
+
+Weapons should feel good.
+
+Co-op should matter.
+
+Death should create tension.
+
+Loot should be exciting.
+
+Exploration should be rewarding.
+
+The mystery should make people curious.
+
+Updates should make people come back.
+
+Do not chase quantity over quality.
+
+Build the foundation correctly and then expand aggressively.
+
+Start by opening the repository and GET TO WORK.
+
+==================================================
+CONFIRMED GAME NOTE — 2026-09-09
+==================================================
+
+User reaffirmed: "I want to have power ups and gates of places to unlock like Black ops two."
+
+NIGHTSPLIT must include gameplay powerups and unlockable gates/doors leading to new areas, inspired by Black Ops II Zombies. Consistent with the existing brief, players earn run currency and choose between spending it on powerups and opening areas. Specific powerups, costs, and balancing remain to be designed and playtested.

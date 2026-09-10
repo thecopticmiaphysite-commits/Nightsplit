@@ -1,18 +1,35 @@
 {
   "name": "NIGHTSPLIT",
+  "servePort": 34872,
   "tree": {
     "$className": "DataModel",
     "ReplicatedStorage": {
-      "NightsplitShared": {
+      "$ignoreUnknownInstances": true,
+      "Shared": {
         "$path": "src/shared"
+      },
+      "Remotes": {
+        "$className": "Folder",
+        "MovementIntent": {
+          "$className": "RemoteEvent"
+        },
+        "MovementSnapshot": {
+          "$className": "RemoteEvent"
+        }
       }
     },
     "ServerScriptService": {
-      "$path": "src/server"
+      "$ignoreUnknownInstances": true,
+      "Server": {
+        "$path": "src/server"
+      }
     },
     "StarterPlayer": {
       "StarterPlayerScripts": {
-        "$path": "src/client"
+        "$ignoreUnknownInstances": true,
+        "Client": {
+          "$path": "src/client"
+        }
       }
     }
   }
