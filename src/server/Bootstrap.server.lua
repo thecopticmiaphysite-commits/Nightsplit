@@ -1,3 +1,5 @@
-require(script.Parent.MovementTestCourse).create()
+local world=workspace:FindFirstChild("RelayNine")
+if not world then world=require(script.Parent.WorldBuilder).build() end
 require(script.Parent.MovementService).start()
-print("NIGHTSPLIT movement foundation ready")
+require(script.Parent.RunService).start(world)
+print("NIGHTSPLIT Relay Nine slice ready")

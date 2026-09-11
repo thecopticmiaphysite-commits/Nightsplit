@@ -4,3 +4,6 @@ build/
 *.rbxlx
 *.rbxm
 .DS_Store
+
+# Unrevealed narrative planning stays local, never replicated or published.
+.private/

@@ -7,6 +7,7 @@ Only manages the four project-owned folders; leaves world content untouched.
 """
 from pathlib import Path
 import subprocess
+import json
 import xml.etree.ElementTree as ET
 
 root = Path(__file__).resolve().parents[1]
@@ -27,7 +28,10 @@ def walk(item,path):
     rows.append('{path={'+','.join(quote(p) for p in path)+'},class='+quote(item.attrib['class'])+',source='+(quote(source.text or '') if source is not None else 'nil')+'}')
     for child in item.findall('Item'): walk(child,path)
 for item in xml.findall('Item'): walk(item,[])
-prefix='local rows={\n'+',\n'.join(rows)+'\n}\n'
+place_ids=json.loads((root/'default.project.json').read_text()).get('servePlaceIds',[])
+assert place_ids, 'Configure servePlaceIds before synchronizing Studio'
+place_guard='assert(table.find({'+','.join(str(p) for p in place_ids)+'}, game.PlaceId), "Unexpected Studio place")\n'
+prefix=place_guard+'local rows={\n'+',\n'.join(rows)+'\n}\n'
 apply='''assert(not game:GetService("RunService"):IsRunning(), "Sync only in Edit")
 local changed=0
 for _, row in rows do

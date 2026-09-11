@@ -1,13 +1,20 @@
 # NIGHTSPLIT
 
 Cooperative survival/action roguelite. The authoritative director brief is
-[NIGHTSPLIT-notes.txt](NIGHTSPLIT-notes.txt). This branch implements Phase 1
-movement; the earlier run-loop experiment remains in `dev/core-game` / PR #1.
+[NIGHTSPLIT-notes.txt](NIGHTSPLIT-notes.txt). This branch builds Relay Nine on the tested Phase 1 movement foundation.
+The earlier experiment remains preserved in `dev/core-game` / PR #1.
 
 ## Play
 
-Press Play in the synchronized Nightsplit Studio place. A disposable movement
-course appears only in Studio: center low tunnel, left slope, right wall.
+Press Play in the synchronized Nightsplit Studio place. You arrive at Relay Nine
+with an ARC / 09 carbine. Restore the western manual relay and stay near it for
+18 seconds to earn 90 charge. Eliminate Listeners for more charge. Spend 80 to
+open the intake gate, or save for Reprieve (55), Insurance (45), and a Fracture
+Cache (40). Clear the three intake guardians and recover the black box during
+Breaknight. Recovery or a team wipe starts a fresh run after 12 seconds.
+
+The eastern low service shortcut supports crouch/slide clearance testing.
+Arrival is a refuge; enemies pursue players beyond its perimeter.
 
 | Action | Keyboard | Controller | Touch |
 | --- | --- | --- | --- |
@@ -15,6 +22,10 @@ course appears only in Studio: center low tunnel, left slope, right wall.
 | Sprint | Hold Left Shift | Toggle L3 | Toggle SPRINT |
 | Crouch / stand | C or Left Ctrl | B / Circle | CROUCH / STAND |
 | Slide | C / Ctrl while sprinting | B while sprinting | SLIDE while sprinting |
+| Fire | Hold left mouse | R2 / RT | Hold FIRE |
+| Aim in first person | Hold right mouse | L2 / LT | Drag camera; center crosshair |
+| Reload | R | X / Square | RELOAD |
+| World interaction | Hold E | Hold Y / Triangle | Hold native prompt |
 
 Slide requires ground contact, speed, stamina and cooldown. An unavailable slide
 preserves sprint instead of abruptly crouching. Slide ends standing when clear,
@@ -27,16 +38,19 @@ disconnect releases sprint.
 
 ```
 ReplicatedStorage
-  Shared         # configuration and movement math
-  Remotes        # MovementIntent, MovementSnapshot
+  Shared         # movement, input and slice configuration
+  Remotes        # movement, combat and world messages
 ServerScriptService
-  Server         # bootstrap, body collision, movement service, Studio test course
+  Server         # movement, combat, enemies, interactions, run lifecycle, world builder
 StarterPlayer / StarterPlayerScripts
-  Client         # movement controller, input, HUD, animation hooks
+  Client         # input, movement, combat/HUD, local world presentation
 ```
 
-Rojo manages these folders, leaving the Baseplate, Terrain and other world
-content in Studio. Do not also enable the old root-level controller/bootstrap
+Rojo manages these folders. `WorldBuilder` generates the original `RelayNine`
+region from source; the server builds it when absent. The agent also generates
+an Edit preview from the same module. Rebuild this managed preview after geometry
+changes. Original Baseplate/spawn objects are retained with placeholder visuals
+hidden. Terrain and unrelated content remain outside this code mapping. Do not also enable the old root-level controller/bootstrap
 or the old `NightsplitShared` mapping: duplicate movement controllers conflict.
 
 Rojo 7.7.0 is installed locally at `tools/bin/rojo` (ignored by Git). Its Studio
@@ -59,6 +73,7 @@ The fallback can be repeated without requiring the director to paste scripts:
 python3 tools/studio_snapshot.py
 ```
 
+Both live Rojo and fallback snapshots restrict sync to place `131615298656723`.
 The agent applies `build/studio-sync.luau` through Studio MCP **in Edit mode**,
 then executes `build/studio-verify.luau`. Generated files and binaries are ignored.
 If deleting/renaming modules, use live Rojo sync or explicitly remove the retired
@@ -75,11 +90,30 @@ instance: the fallback intentionally does not delete unknown Studio content.
   plus upward shape sweep prevents standing through parts and Terrain.
 - `MovementController`: responsive local speed prediction, camera presentation,
   animation coordination and clean character lifecycle.
-- `MovementHUD`: one stamina bar with state feedback. Touch has two separate
+- `MovementHUD`: one stamina bar with state feedback. Touch has separate
   safe-area-aware controls alongside Roblox's default movement controls.
 - Slide uses a bounded planar `LinearVelocity`, an upright orientation constraint,
   measured entry momentum, limited boost, deceleration and modest slope influence.
   Humanoid locomotion yields during the slide so it cannot brake against the force.
+
+## Slice systems
+
+- `CombatService`: server rays, ammunition, reload lifecycle, weapon ownership and
+  rate limits. Three configured weapons share presentation and damage handling.
+- `EnemyService`: bounded server-owned Listeners, attack windup, obstruction
+  checks, throttled paths, and three reserved intake guardian slots.
+- `InteractionService` / `RequestGuard`: distance, obstruction, hold duration,
+  alive state and rate validation before purchases or progression.
+- `RunService`: relay defense, charge, gate, Reprieve, Insurance, one-owner cache
+  choice/risk, Day/Breaknight, extraction, Echo recovery/reboot and run reset.
+- `WorldPresentation`: client atmosphere/audio; Breaknight also changes enemy
+  speed/spawn cadence and opens the extraction opportunity on the server.
+
+The cache offers a guaranteed Charged ARC or one earned-currency risk: 28% base
+ARC, 40% Charged ARC, 32% Spindle. Reprieve restores 8 HP per elimination.
+Insurance preserves Reprieve through one full death and Echo reboot. Full death
+loses half the player's charge. A teammate has 90 seconds to retrieve the Echo
+and carry it to the western reboot station for a five-second interaction.
 
 ## Boundaries
 
@@ -87,8 +121,8 @@ Client-owned character physics is retained for responsiveness. The server reject
 unauthorized movement actions and corrects excessive sustained horizontal travel;
 this is **not comprehensive anti-cheat**. Vertical flight, sophisticated noclip,
 latency extremes, multiple real clients, moving platforms and knockback integration
-need further testing. Later combat, doors, loot and rewards must independently
-validate position and eligibility on the server.
+need further testing. Combat, doors, loot and rewards independently
+validate position and eligibility; these still need adversarial multiplayer tests.
 
 Trusted server teleports should use `MovementService.teleport(player, cframe)` so
 the displacement budget resets. The service communicates that request through a
@@ -104,3 +138,5 @@ Collision dimensions currently target the tested default R15 avatar. Unusual
 avatar scales and other rigs need validation before release.
 
 See [validation](docs/phase-1-validation.md) and [design/audit notes](docs/rebuild-notes.md).
+
+See [Relay Nine validation](docs/relay-nine-validation.md) and [creative direction](docs/creative-direction.md).

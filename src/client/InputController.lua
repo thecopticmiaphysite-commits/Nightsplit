@@ -5,9 +5,15 @@ local Players = game:GetService("Players")
 local Config = require(game.ReplicatedStorage.Shared.InputConfig)
 local Input = {}
 Input.__index = Input
+local actionEvent=Instance.new("BindableEvent")
+Input.Action=actionEvent.Event
+local function emit(self,action,enabled)
+ self.onAction(action,enabled)
+ actionEvent:Fire(action,enabled)
+end
 
 function Input.new(onAction)
- local self=setmetatable({sprint=false,connections={},bindings=table.clone(Config),buttons={}},Input)
+ local self=setmetatable({sprint=false,connections={},bindings=table.clone(Config),buttons={},held={}},Input)
  self.onAction=onAction
  for action in self.bindings do self:bind(action) end
  self:createTouchControls()
@@ -32,8 +38,12 @@ function Input:handle(action,state,inputType)
    if toggle then self.sprint=not self.sprint else self.sprint=true end
   elseif state==Enum.UserInputState.End and not toggle then self.sprint=false
   else return Enum.ContextActionResult.Sink end
-  self.onAction(action,self.sprint)
- elseif state==Enum.UserInputState.Begin then self.onAction(action,true) end
+  emit(self,action,self.sprint)
+ elseif self.bindings[action] and self.bindings[action].Hold then
+  local enabled=state==Enum.UserInputState.Begin
+  if state~=Enum.UserInputState.Begin and state~=Enum.UserInputState.End and state~=Enum.UserInputState.Cancel then return Enum.ContextActionResult.Sink end
+  if self.held[action]~=enabled then self.held[action]=enabled; emit(self,action,enabled) end
+ elseif state==Enum.UserInputState.Begin then emit(self,action,true) end
  return Enum.ContextActionResult.Sink
 end
 function Input:bind(action)
@@ -56,6 +66,7 @@ function Input:createTouchControls()
  gui.Parent=Players.LocalPlayer:WaitForChild("PlayerGui")
  self.touchGui=gui
  for action,definition in self.bindings do
+  if definition.NoTouch then continue end
   local button=Instance.new("TextButton")
   button.Name=action
   button.AnchorPoint=Vector2.new(1,1)
@@ -72,16 +83,25 @@ function Input:createTouchControls()
   local corner=Instance.new("UICorner")
   corner.CornerRadius=UDim.new(0,12)
   corner.Parent=button
+  if definition.Hold then
+   button.InputBegan:Connect(function(object)
+    if object.UserInputType==Enum.UserInputType.Touch or object.UserInputType==Enum.UserInputType.MouseButton1 then self:handle(action,Enum.UserInputState.Begin,Enum.UserInputType.Touch) end
+   end)
+   button.InputEnded:Connect(function(object)
+    if object.UserInputType==Enum.UserInputType.Touch or object.UserInputType==Enum.UserInputType.MouseButton1 then self:handle(action,Enum.UserInputState.End,Enum.UserInputType.Touch) end
+   end)
+  else
   button.Activated:Connect(function()
    self:handle(action,Enum.UserInputState.Begin,Enum.UserInputType.Touch)
    self:handle(action,Enum.UserInputState.End,Enum.UserInputType.Touch)
   end)
+  end
   self.buttons[action]=button
  end
 end
 function Input:rebind(action,keys)
  assert(self.bindings[action],"Unknown action")
- for _,key in keys do assert(typeof(key)=="EnumItem" and key.EnumType==Enum.KeyCode,"Expected KeyCode") end
+ for _,key in keys do assert(typeof(key)=="EnumItem" and (key.EnumType==Enum.KeyCode or key.EnumType==Enum.UserInputType),"Expected KeyCode") end
  self:reset()
  self.bindings[action]=table.clone(self.bindings[action])
  self.bindings[action].Keys=table.clone(keys)
@@ -89,7 +109,8 @@ function Input:rebind(action,keys)
 end
 function Input:reset()
  self.sprint=false
- self.onAction("Sprint",false)
+ emit(self,"Sprint",false)
+ for action in self.held do self.held[action]=false; emit(self,action,false) end
 end
 function Input:setContext(state,exhausted)
  local sprint=exhausted and "RECOVER" or self.sprint and "SPRINT ON" or "SPRINT"

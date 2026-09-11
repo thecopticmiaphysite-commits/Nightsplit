@@ -25,7 +25,9 @@ Inspected both branches, all movement source, and the open PR #1
 
 Useful concepts retained for Phase 3: data-driven run configuration, tagged world
 interactions and attribute-driven presentation. The branch and PR are preserved,
-not merged into this movement rebuild. No economy or run-loop systems are enabled.
+not merged into this movement rebuild. That was the Phase 1 baseline. The subsequent Relay Nine slice implements new
+server-validated economy and run systems on `rebuild/relay-nine-slice`, based on
+the tested movement commit `e67189b`. PR #1 remains unchanged.
 
 ## Phase 1 decisions
 
@@ -36,8 +38,9 @@ A server collider provides real low clearance. Standing checks use a volume
 and a sweep. Slide consumes actual momentum and ends crouched when obstructed.
 One minimal HUD replaces competing overlays. Animation IDs remain empty.
 
-The Studio test course exists only during Play in Studio. Its code is synchronized
-with the repository; it does not add test obstacles to published live servers.
+The original Studio movement course module remains available but is no longer
+called by bootstrap. Relay Nine now supplies the playable environment and a low
+service shortcut for movement testing.
 
 ## Later run-loop phase: powerups and gates
 

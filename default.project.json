@@ -15,6 +15,15 @@
         },
         "MovementSnapshot": {
           "$className": "RemoteEvent"
+        },
+        "CombatIntent": {
+          "$className": "RemoteEvent"
+        },
+        "CombatFeedback": {
+          "$className": "RemoteEvent"
+        },
+        "WorldCue": {
+          "$className": "RemoteEvent"
         }
       }
     },
@@ -32,5 +41,8 @@
         }
       }
     }
-  }
+  },
+  "servePlaceIds": [
+    131615298656723
+  ]
 }
