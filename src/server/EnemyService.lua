@@ -5,6 +5,7 @@ local RunService=game:GetService("RunService")
 local PhysicsService=game:GetService("PhysicsService")
 local Config=require(game.ReplicatedStorage.Shared.SliceConfig)
 local Guard=require(script.Parent.RequestGuard)
+local EnemyVisuals=require(script.Parent.EnemyVisuals)
 local Cue=game.ReplicatedStorage.Remotes.WorldCue
 local Service={}
 type Enemy={model:Model,root:BasePart,humanoid:Humanoid,home:Vector3,nextAttack:number,nextPath:number,computing:boolean,path:{PathWaypoint}?,waypoint:number,dead:boolean,guard:boolean}
@@ -24,23 +25,12 @@ function Service.spawn(position: Vector3,guard: boolean?): Model?
   if Service.count(true)>=3 then return nil end
  elseif Service.count()-Service.count(true)>=Config.MaxEnemies then return nil end
  serial+=1
- local m=Instance.new("Model"); m.Name="Listener_"..serial
+ local m=Instance.new("Model"); m.Name=(guard and "GateStalker_" or "Stalker_")..serial
  m.ModelStreamingMode=Enum.ModelStreamingMode.Atomic
  m:SetAttribute("NightsplitEnemy",true); m:SetAttribute("Guard",guard==true)
- local root=piece(m,"HumanoidRootPart",Vector3.new(2.5,2,2),CFrame.new(position),Color3.fromRGB(38,44,48),true)
+ local root=piece(m,"HumanoidRootPart",Vector3.new(3.4,3.2,3.2),CFrame.new(position+Vector3.new(0,4.1,0)),Color3.fromRGB(38,44,48),true)
  root.Transparency=1
- local function weld(name: string,size: Vector3,offset: Vector3,color: Color3): Part
-  local p=piece(m,name,size,root.CFrame*CFrame.new(offset),color,false)
-  p.Massless=true
-  local w=Instance.new("WeldConstraint"); w.Part0=root; w.Part1=p; w.Parent=p
-  return p
- end
- weld("Mantle",Vector3.new(3,3.2,1.6),Vector3.new(0,0.3,0),Color3.fromRGB(42,55,58))
- weld("Head",Vector3.new(1.5,1.3,1.3),Vector3.new(0,2.5,0),Color3.fromRGB(74,79,76))
- local visor=weld("Eye",Vector3.new(1.6,0.16,0.15),Vector3.new(0,2.6,-0.71),Color3.fromRGB(247,139,70))
- visor.Material=Enum.Material.Neon
- for _,x in {-1.8,1.8} do weld("Arm",Vector3.new(0.6,3.3,0.7),Vector3.new(x,-0.1,0),Color3.fromRGB(32,41,44)) end
- for _,x in {-0.65,0.65} do weld("Leg",Vector3.new(0.9,2,1),Vector3.new(x,-2,0),Color3.fromRGB(29,34,37)) end
+ EnemyVisuals.buildStalker(m,root,guard==true)
  local h=Instance.new("Humanoid"); h.Name="Humanoid"; h.RequiresNeck=false
  h.MaxHealth=guard and 150 or Config.Enemy.Health; h.Health=h.MaxHealth
  h.HipHeight=2; h.WalkSpeed=night and Config.Enemy.NightSpeed or Config.Enemy.Speed
