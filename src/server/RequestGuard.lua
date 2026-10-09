@@ -34,6 +34,8 @@ function Guard.near(player: Player, part: BasePart, distance: number): boolean
  params.FilterDescendantsInstances={c}
  params.RespectCanCollide=true
  local hit=workspace:Raycast(root.Position,part.Position-root.Position,params)
- return hit==nil or hit.Instance==part or hit.Instance:IsDescendantOf(part.Parent :: Instance)
+ -- Shared ancestry is not visibility: EchoTags and blocking walls can share
+ -- the entire world model. Only the interaction part itself may end the ray.
+ return hit==nil or hit.Instance==part
 end
 return Guard
