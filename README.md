@@ -16,6 +16,14 @@ Breaknight. Recovery or a team wipe starts a fresh run after 12 seconds.
 The eastern low service shortcut supports crouch/slide clearance testing.
 Arrival is a refuge; enemies pursue players beyond its perimeter.
 
+Optional evidence can be inspected with the same world-interaction controls:
+the circuit plate at the listening array, the eastern sealed evacuation lift,
+and the inscription at the low service shortcut. Revisit the plate and lift
+after restoring the relay, and the inscription during Breaknight. Observations
+appear as short captions for the inspecting player. Inspect again to reread;
+combat and objective notices can interrupt a caption. The clues cost no charge,
+grant no combat advantage, and do not gate extraction.
+
 | Action | Keyboard | Controller | Touch |
 | --- | --- | --- | --- |
 | Move / look / jump | Roblox defaults | Roblox defaults | Thumbstick / drag / jump |
@@ -49,7 +57,9 @@ StarterPlayer / StarterPlayerScripts
 Rojo manages these folders. `WorldBuilder` generates the original `RelayNine`
 region from source; the server builds it when absent. The agent also generates
 an Edit preview from the same module. Rebuild this managed preview after geometry
-changes. Original Baseplate/spawn objects are retained with placeholder visuals
+changes. On Play, bootstrap refreshes an older revision of the region only when
+it is marked `GeneratedBy = Nightsplit`; the Edit preview is not updated by that
+runtime refresh. Keep custom work outside the generated region. Original Baseplate/spawn objects are retained with placeholder visuals
 hidden. Terrain and unrelated content remain outside this code mapping. Do not also enable the old root-level controller/bootstrap
 or the old `NightsplitShared` mapping: duplicate movement controllers conflict.
 
@@ -108,6 +118,10 @@ instance: the fallback intentionally does not delete unknown Studio content.
   choice/risk, Day/Breaknight, extraction, Echo recovery/reboot and run reset.
 - `WorldPresentation`: client atmosphere/audio; Breaknight also changes enemy
   speed/spawn cadence and opens the extraction opportunity on the server.
+- `EvidenceService` / `EvidenceCatalog`: optional server-validated inspections,
+  with observations selected from the current relay and night state. These are
+  player-readable fragments, not the private story bible. There is no persistent
+  collection journal yet.
 
 The cache offers a guaranteed Charged ARC or one earned-currency risk: 28% base
 ARC, 40% Charged ARC, 32% Spindle. Reprieve restores 8 HP per elimination.
@@ -140,3 +154,6 @@ avatar scales and other rigs need validation before release.
 See [validation](docs/phase-1-validation.md) and [design/audit notes](docs/rebuild-notes.md).
 
 See [Relay Nine validation](docs/relay-nine-validation.md) and [creative direction](docs/creative-direction.md).
+
+See [evidence feature checks](docs/evidence-validation.md) for automated results
+and the remaining Studio playtest.

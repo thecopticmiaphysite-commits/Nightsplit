@@ -47,15 +47,25 @@ local phaseLabel=label("Phase",UDim2.new(0.2,0,0,20),UDim2.fromScale(0.6,0.04),1
   phaseLabel.TextXAlignment=Enum.TextXAlignment.Left
   objective.Position=UDim2.new(0.08,0,0,80); objective.Size=UDim2.new(0.84,0,0,36)
  end
-local notice=label("Notice",UDim2.new(0.12,0,0.22,0),UDim2.fromScale(0.76,0.09),14)
- notice.TextWrapped=true; notice.Text=""
+local notice=label("Notice",UDim2.new(0.12,0,0.22,0),UDim2.new(0.76,0,0,48),14)
+ notice.TextWrapped=true; notice.Text=""; notice.AutomaticSize=Enum.AutomaticSize.Y
+ notice.TextYAlignment=Enum.TextYAlignment.Top
+ notice.TextStrokeTransparency=0.4
+ if UIS.TouchEnabled then notice.Position=UDim2.new(0.08,0,0,122); notice.Size=UDim2.new(0.84,0,0,48) end
 local health=label("Health",UDim2.new(0,24,1,UIS.TouchEnabled and -131 or -16),UDim2.fromOffset(220,16),11)
  health.TextXAlignment=Enum.TextXAlignment.Left
 local noticeVersion=0
-local function notify(text: string)
+local noticeTween: Tween?=nil
+local function notify(text: string, duration: number?)
  noticeVersion+=1; local version=noticeVersion
+ if noticeTween then noticeTween:Cancel(); noticeTween=nil end
  notice.Text=text; notice.TextTransparency=0
- task.delay(4,function() if noticeVersion==version then TweenService:Create(notice,TweenInfo.new(1),{TextTransparency=1}):Play() end end)
+ notice.TextStrokeTransparency=0.4
+ task.delay(duration or 4,function()
+  if noticeVersion~=version then return end
+  noticeTween=TweenService:Create(notice,TweenInfo.new(1),{TextTransparency=1,TextStrokeTransparency=1})
+  noticeTween:Play()
+ end)
 end
 local function sound(id: string,volume: number,pitch: number)
  local s=Instance.new("Sound"); s.SoundId=id; s.Volume=volume; s.PlaybackSpeed=pitch; s.Parent=SoundService; s:Play(); Debris:AddItem(s,3)
@@ -111,10 +121,15 @@ end
   if userId==player.UserId and hit then confirmedUntil=os.clock()+0.15; sound(Config.Audio.Confirm,0.12,1.7) end
  end))
  table.insert(connections,remotes.WorldCue.OnClientEvent:Connect(function(kind: string,a: any)
-  if kind=="Notice" then notify(a)
+  if kind=="Evidence" then notify(a.title.."\n"..a.text,10)
+  elseif kind=="Notice" then notify(a)
   elseif kind=="Hurt" then notify("CONTACT"); sound(Config.Audio.Hit,0.16,0.85) end
  end))
- table.insert(connections,player.CharacterAdded:Connect(function() held=false; player.CameraMode=Enum.CameraMode.Classic end))
+ table.insert(connections,player.CharacterAdded:Connect(function()
+  held=false; player.CameraMode=Enum.CameraMode.Classic
+  noticeVersion+=1; if noticeTween then noticeTween:Cancel(); noticeTween=nil end
+  notice.Text=""
+ end))
  local uiClock=0
  RunService:BindToRenderStep("NightsplitWeapon",Enum.RenderPriority.Camera.Value+2,function(dt)
   local c=player.Character; local h=c and c:FindFirstChildOfClass("Humanoid")
@@ -146,6 +161,7 @@ end
   if objective.Text=="Hold the relay perimeter" then objective.Text..=" · "..tostring(workspace:GetAttribute("RelayRemaining") or 0).."s" end
  end)
  script.Destroying:Connect(function()
+  noticeVersion+=1; if noticeTween then noticeTween:Cancel() end
   RunService:UnbindFromRenderStep("NightsplitWeapon")
   for _,c in connections do c:Disconnect() end
   if weaponModel then weaponModel:Destroy() end
