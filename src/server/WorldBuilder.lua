@@ -1,6 +1,6 @@
 --!strict
 -- Deterministic original geometry. Edit-time preview and live server use the same source.
-local Builder={}
+local Builder={Revision=2}
 local METAL=Color3.fromRGB(46,62,68)
 local DARK=Color3.fromRGB(24,36,40)
 local STONE=Color3.fromRGB(64,76,77)
@@ -68,7 +68,7 @@ function Builder.build(): Model
   previous:Destroy()
  end
  local world=Instance.new("Model"); world.Name="RelayNine"
- world:SetAttribute("GeneratedBy","Nightsplit"); world:SetAttribute("Revision",1)
+ world:SetAttribute("GeneratedBy","Nightsplit"); world:SetAttribute("Revision",Builder.Revision)
  -- Do not make the entire region Atomic: each structure streams independently.
  local ground=model(world,"Courtyard")
  part(ground,"Foundation",Vector3.new(150,2,230),CFrame.new(0,-1,-30),STONE)
@@ -138,14 +138,16 @@ function Builder.build(): Model
  end
  -- Small evidence, not explanatory lore. Future interpretations stay private.
  local clues=model(world,"Evidence")
- local label=part(clues,"CircuitLabel",Vector3.new(3,1.5,0.1),CFrame.new(-27,2.8,7.35)*CFrame.Angles(0,math.pi,0),DARK)
+ -- Keep the inspection away from the relay's restore prompt.
+ part(clues,"CircuitPost",Vector3.new(0.4,3,0.4),CFrame.new(-33,1.5,-9),METAL,Enum.Material.Metal)
+ local label=part(clues,"CircuitLabel",Vector3.new(3,1.5,0.1),CFrame.new(-33,3,-8.7)*CFrame.Angles(0,math.pi,0),DARK)
  label.CanCollide=false; label.CanQuery=false
  text(label,"08 / 09",TEAL,32); label:SetAttribute("ClueId","RN-01")
- local lift=part(clues,"SealedServiceLift",Vector3.new(13,12,0.5),CFrame.new(65,6,-38)*CFrame.Angles(0,math.rad(-90),0),DARK,Enum.Material.Metal)
+ local lift=part(clues,"SealedServiceLift",Vector3.new(13,12,0.5),CFrame.new(65,6,-38)*CFrame.Angles(0,math.rad(90),0),DARK,Enum.Material.Metal)
  text(lift,"EVACUATION →\nSERVICE LIFT\nWELDED SHUT",AMBER,24); lift:SetAttribute("ClueId","RN-02")
- local whisper=part(clues,"ConduitInscription",Vector3.new(7,0.7,0.1),CFrame.new(32,2.2,-5.9)*CFrame.Angles(0,math.pi,0),METAL)
+ local whisper=part(clues,"ConduitInscription",Vector3.new(7,1.1,0.1),CFrame.new(32,2.2,-5.9)*CFrame.Angles(0,math.pi,0),METAL)
  whisper.CanCollide=false; whisper.CanQuery=false
- text(whisper,"RETURN BEFORE THE SIGNAL",TEAL,18); whisper:SetAttribute("ClueId","RN-03")
+ text(whisper,"RETURN BEFORE THE SIGNAL\nWE DID.",TEAL,18); whisper:SetAttribute("ClueId","RN-03")
  local horizon=model(world,"DistantInfrastructure")
  for i=1,7 do
   local x=-200+i*52
