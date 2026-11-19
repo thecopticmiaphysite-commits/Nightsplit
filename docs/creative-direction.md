@@ -31,3 +31,9 @@ signature weapons remain core pillars. No Robux gambling or pay-to-win purchases
 Expand Breaknight through configurable enemy, route, hazard, loot and story events.
 The slice currently changes atmosphere, enemy tempo/speed and extraction access;
 later regions should prove richer transformations before adding breadth.
+
+The 2026-11-18 direction in `docs/atmosphere-and-cast.md` adds a proposed recovery
+crew, an authored first-operation treatment and an original adaptive-score sketch.
+The cast is proposed, not implemented or locked canon. Keep its unrevealed history
+private. Music integration and remaining audio upload/Studio gates are tracked in
+`docs/music-validation.md`.

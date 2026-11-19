@@ -1273,3 +1273,13 @@ CONFIRMED GAME NOTE — 2026-09-09
 User reaffirmed: "I want to have power ups and gates of places to unlock like Black ops two."
 
 NIGHTSPLIT must include gameplay powerups and unlockable gates/doors leading to new areas, inspired by Black Ops II Zombies. Consistent with the existing brief, players earn run currency and choose between spending it on powerups and opening areas. Specific powerups, costs, and balancing remain to be designed and playtested.
+
+==================================================
+CONFIRMED CREATIVE DIRECTION - 2026-11-18
+==================================================
+The director likes the game so far and wants stronger atmosphere: engaging
+background music, an intricately connected story, and memorable, likable
+characters. Attack on Titan, Dragon Ball Z, Jujutsu Kaisen and Ben 10 are quality
+references, not sources of characters, plotlines or soundtrack assets to copy.
+The proposed original treatment is in docs/atmosphere-and-cast.md. It is a draft
+for development, not a claim that those scenes or characters already exist.
